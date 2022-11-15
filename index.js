@@ -34,11 +34,7 @@ class TodoManager {
     }
 
     display() {
-        const text = [];
-        this.todos.forEach((todo, index) => {
-            text.push(`${index + 1} ${todo.done ? '[x]' : '[ ]'} ${todo.description}`);
-        });
-        return text;
+        return this.todos.map((todo, index) => {return `${index + 1} ${todo.done ? '[x]' : '[ ]'} ${todo.description}`});
     }
 }
 
@@ -47,6 +43,6 @@ const main = (() => {
     todoManager.loop(() => { return prompt('') });
 });
 
-main();
+//main();
 
 module.exports = TodoManager;

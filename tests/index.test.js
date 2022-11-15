@@ -13,7 +13,7 @@ describe('Todo list', () => {
         todoManager.loop(() => {return commands.shift()});
         expect(todoManager.todos.length).toBe(1);
         expect(todoManager.todos[0].description).toBe('testTask');
-        expect(todoManager.display()).toEqual(['0 [ ] testTask']);
+        expect(todoManager.display()).toEqual(['1 [ ] testTask']);
     });
     it('Enter - task and remove task', () => {
 
