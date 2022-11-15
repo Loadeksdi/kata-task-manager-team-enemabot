@@ -2,14 +2,15 @@ const prompt = require('prompt-sync')();
 
 class Todo {
 
-    constructor(description) {
+    constructor(index, description) {
+        this.index = index;
         this.description = description;
         this.done = false;
     }
 }
 class TodoManager {
 
-    constructor(){
+    constructor() {
         this.todos = [];
     }
 
@@ -18,7 +19,12 @@ class TodoManager {
             return false;
         }
         if (string.startsWith('+')) {
-            this.todos.push(new Todo(string.slice(2)));
+            this.todos.push(new Todo(this.todos.length + 1, string.slice(2)));
+            this.display().forEach(todo => console.log(todo));
+        }
+        if (string.startsWith('-')) {
+            const index = this.todos.findIndex(todo => todo.index === string.slice(2));
+            this.todos.splice(index, 1);
             this.display().forEach(todo => console.log(todo));
         }
         return true;
@@ -34,7 +40,7 @@ class TodoManager {
     }
 
     display() {
-        return this.todos.map((todo, index) => {return `${index + 1} ${todo.done ? '[x]' : '[ ]'} ${todo.description}`});
+        return this.todos.map((todo, index) => { return `${index + 1} ${todo.done ? '[x]' : '[ ]'} ${todo.description}` });
     }
 }
 
@@ -43,6 +49,6 @@ const main = (() => {
     todoManager.loop(() => { return prompt('') });
 });
 
-//main();
+main();
 
 module.exports = TodoManager;

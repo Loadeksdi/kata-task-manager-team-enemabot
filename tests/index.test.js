@@ -16,6 +16,9 @@ describe('Todo list', () => {
         expect(todoManager.display()).toEqual(['1 [ ] testTask']);
     });
     it('Enter - task and remove task', () => {
-
+        const todoManager = new TodoManager();
+        const commands = ['+ testTask', '- 1', 'q'];
+        todoManager.loop(() => {return commands.shift()});
+        expect(todoManager.todos.length).toBe(0);
     })
 })
