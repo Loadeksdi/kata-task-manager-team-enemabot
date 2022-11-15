@@ -1,17 +1,32 @@
 const prompt = require('prompt-sync')();
 
+class Todo {
+
+    constructor(description) {
+        this.description = description;
+        this.done = false;
+    }
+}
 class TodoManager {
 
+    constructor(){
+        this.todos = [];
+    }
+
     process(string) {
+        console.log(string);
         if (string === 'q') {
             return false;
+        }
+        if (string.startsWith('+')) {
+            this.todos.push(new Todo(string.slice(2)));
         }
         return true;
     }
 
-    loop(inputHandler) {
+    loop(inputValue) {
         while (true) {
-            const userInput = inputHandler();
+            const userInput = inputValue();
             if (!this.process(userInput)) {
                 break;
             }
@@ -21,9 +36,9 @@ class TodoManager {
 
 const main = (() => {
     const todoManager = new TodoManager();
-    todoManager.loop(() => prompt(' '));
+    todoManager.loop(() => { prompt(' ') });
 });
 
-// main();
+//main();
 
 module.exports = TodoManager;
