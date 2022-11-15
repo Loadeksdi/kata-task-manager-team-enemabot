@@ -27,6 +27,17 @@ class TodoManager {
             this.todos.splice(index, 1);
             this.display().forEach(todo => console.log(todo));
         }
+        if (string.startsWith('x')) {
+            const index = this.todos.findIndex(todo => todo.index === string.slice(2));
+            console.log(index);
+            this.todos[index].done = true;
+            this.display().forEach(todo => console.log(todo));
+        }
+        if (string.startsWith('o')) {
+            const index = this.todos.findIndex(todo => todo.index === string.slice(2));
+            this.todos[index].done = false;
+            this.display().forEach(todo => console.log(todo));
+        }
         return true;
     }
 
@@ -49,6 +60,6 @@ const main = (() => {
     todoManager.loop(() => { return prompt('') });
 });
 
-main();
+//main();
 
 module.exports = TodoManager;

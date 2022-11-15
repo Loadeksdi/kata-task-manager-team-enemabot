@@ -20,5 +20,17 @@ describe('Todo list', () => {
         const commands = ['+ testTask', '- 1', 'q'];
         todoManager.loop(() => {return commands.shift()});
         expect(todoManager.todos.length).toBe(0);
-    })
+    });
+    it('Enter x task and set task as done', () => {
+        const todoManager = new TodoManager();
+        const commands = ['+ testTask', 'x 1', 'q'];
+        todoManager.loop(() => {return commands.shift()});
+        expect(todoManager.todos[0].done).toBe(true);
+    });
+    it('Enter o task and set task as todo', () => {
+        const todoManager = new TodoManager();
+        const commands = ['+ testTask', 'x 1', 'o 1', 'q'];
+        todoManager.loop(() => {return commands.shift()});
+        expect(todoManager.todos[0].done).toBe(false);
+    });
 })
