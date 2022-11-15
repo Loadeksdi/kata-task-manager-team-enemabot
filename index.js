@@ -14,12 +14,12 @@ class TodoManager {
     }
 
     process(string) {
-        console.log(string);
         if (string === 'q') {
             return false;
         }
         if (string.startsWith('+')) {
             this.todos.push(new Todo(string.slice(2)));
+            this.display().forEach(todo => console.log(todo));
         }
         return true;
     }
@@ -32,13 +32,21 @@ class TodoManager {
             }
         }
     }
+
+    display() {
+        const text = [];
+        this.todos.forEach((todo, index) => {
+            text.push(`${index + 1} ${todo.done ? '[x]' : '[ ]'} ${todo.description}`);
+        });
+        return text;
+    }
 }
 
 const main = (() => {
     const todoManager = new TodoManager();
-    todoManager.loop(() => { prompt(' ') });
+    todoManager.loop(() => { return prompt('') });
 });
 
-//main();
+main();
 
 module.exports = TodoManager;
