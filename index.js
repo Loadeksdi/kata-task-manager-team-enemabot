@@ -14,6 +14,12 @@ class TodoManager {
         this.todos = [];
     }
 
+    reorderTodos(){
+        for (let i = 0; i < this.todos.length; i++) {
+            this.todos[i].index = i + 1;
+        }
+    }
+
     process(string) {
         if (string === 'q') {
             return false;
@@ -23,8 +29,8 @@ class TodoManager {
             this.display().forEach(todo => console.log(todo));
         }
         if (string.startsWith('-')) {
-            const index = this.todos.findIndex(todo => todo.index === string.slice(2));
-            this.todos.splice(index, 1);
+            this.todos = this.todos.filter(todo => todo.index != string.slice(2));
+            this.reorderTodos();
             this.display().forEach(todo => console.log(todo));
         }
         if (string.startsWith('x')) {
@@ -63,6 +69,6 @@ const main = (() => {
     todoManager.loop(() => { return prompt('') });
 });
 
-//main();
+main();
 
 module.exports = TodoManager;
