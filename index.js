@@ -28,15 +28,18 @@ class TodoManager {
             this.display().forEach(todo => console.log(todo));
         }
         if (string.startsWith('x')) {
-            const index = this.todos.findIndex(todo => todo.index === string.slice(2));
-            console.log(index);
-            this.todos[index].done = true;
-            this.display().forEach(todo => console.log(todo));
+            const todo = this.todos.find(todo => todo.index == string.slice(2));
+            if(todo){
+                todo.done = true;
+                this.display().forEach(todo => console.log(todo));
+            }
         }
         if (string.startsWith('o')) {
-            const index = this.todos.findIndex(todo => todo.index === string.slice(2));
-            this.todos[index].done = false;
-            this.display().forEach(todo => console.log(todo));
+            const todo = this.todos.find(todo => todo.index == string.slice(2));
+            if(todo){
+                todo.done = false;
+                this.display().forEach(todo => console.log(todo));
+            }
         }
         return true;
     }
@@ -51,7 +54,7 @@ class TodoManager {
     }
 
     display() {
-        return this.todos.map((todo, index) => { return `${index + 1} ${todo.done ? '[x]' : '[ ]'} ${todo.description}` });
+        return this.todos.map((todo) => { return `${todo.index} ${todo.done ? '[x]' : '[ ]'} ${todo.description}` });
     }
 }
 
